@@ -1,0 +1,56 @@
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression, Ridge
+
+x = [[1], [2], [3], [4], [5], [6], [7], [8]]
+y = [25, 30, 38, 42, 50, 55, 62, 70]
+
+linear_model = LinearRegression()
+linear_model.fit(x, y)
+
+ridge_model = Ridge(alpha=10)
+ridge_model.fit(x, y)
+
+experience_line = [[1], [2], [3], [4], [5], [6], [7], [8]]
+
+linear_salary = linear_model.predict(experience_line)
+ridge_salary = ridge_model.predict(experience_line)
+
+plt.scatter(x, y, color="black", label="Actual salary")
+
+plt.plot(
+    experience_line,
+    linear_salary,
+    color="blue",
+    label="Linear Regression"
+)
+
+plt.plot(
+    experience_line,
+    ridge_salary,
+    color="red",
+    label="Ridge Regression (penalty)"
+)
+
+plt.xlabel("Work experience (years) — X-axis")
+plt.ylabel("Salary (thousands of rupees) — Y-axis")
+plt.title("Regression using years of experience and salary")
+plt.grid(True)
+plt.legend()
+plt.show()
+
+new_person = [[5]]
+
+print(
+    "Linear Regression prediction:",
+    linear_model.predict(new_person)[0],
+    "thousand rupees"
+)
+
+print(
+    "Ridge Regression prediction:",
+    ridge_model.predict(new_person)[0],
+    "thousand rupees"
+)
+
+print("Linear coefficient:", linear_model.coef_[0])
+print("Ridge coefficient:", ridge_model.coef_[0])
